@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Batch19">
+    <test verbose="2" preserve-order="true" name="testScenario">
+       <classes>
+           <class name="class01.annotations">
+               <methods>
+                   <include name="ATestCase"></include>
+               </methods>
+
+           </class>
+           <class name="class01.priority"></class>
+       </classes>
+    </test>
+    <test name="testAll">
+        <packages>
+            <package name="class02"></package>
+        </packages>
+    </test>
+</suite>

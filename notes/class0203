@@ -1,0 +1,204 @@
+
+1.HardAssertions
+As soon as any assertion FAIlS it doesnt check for other assertions , marks the test as failed and quits
+
+
+Assert.Assertequals(Expected value,Actual Value)-->if they are equal your test case will pass
+`												--> if they are not equal your test case is going to FAIL
+
+2.SoftAssertions:
+
+Soft asseertion will execute all assertions that are there despite of the fact that they FAIL or PASS
+and once it has evaluated them all then it will mark the test case as
+Failed or Passed
+(it marks it failed even if one assertion has failed)
+
+The advantage of using soft asssert is that we can
+see what errors we are having in other assertions that we make in the same test case
+but we cant see them if we use hardassertion as IT WILL EXIT AS SOON AS THE FIRST ASSERTION FAILS
+
+method to implement:
+1. delcare the instance
+softAssert soft =new softAssert();
+2.make assertions
+
+soft.assertEquals();
+
+3. at the end of makiing all assertions
+you must do
+soft.assertALL()
+
+this evalutes wether the test case has to be marked passed or failed
+
+---------Data Provider-----------
+Used for dataDriven testing
+ DataProviders in TestNG are another way to pass the parameters in the test function. DataProviders pass different values to the TestNG Test Case in a single execution
+@DataProvider
+
+--> we provide our data under this annotations and should name our data provider @DataProvider(name="abc")
+
+-->in which ever test case we want to use this data we simply link the data provider to that test case
+  @Test(dataprovider="abc")
+
+//dataprovider -->use it when u have small data
+in case of larger data use excel file
+
+
+if we want our test case to utilize this dataprovider
+what do we need to do?
+@test(dataprovider ="name of dataprovider")
+public void test(){
+
+
+}
+
+
+whenever u want to create a testNg XML
+
+
+Approach is
+1.make sure the XML file is installed
+      goto file--> prefrences     (intellijidea--> prefrences)
+      plugins---> marketplace --> TestNgXML and install--> apply ok
+
+
+
+testng xml file for a particular class
+
+1. right click the or the class --> choose option  create testNg xml
+2. then click OK
+3.right click on the Project and select the option reload from disk.
+
+
+In a testNg XML file
+
+we have a structure
+
+<suite>
+		<test name="abc">
+				<classes>
+						<class name=  > </class>
+						<class name=  > </class>
+
+				</classes>
+		</test>
+
+</suite>
+
+
+
+
+1.XML file
+a. Class wise execution
+
+ we can control which classes to execute
+ <suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="mytest">
+        <classes>
+            <class name="class01.priority"></class>
+            <class name="class02.dataProvider"></class>
+            <class name="class01.AssertionBasic"></class>
+        </classes>
+    </test>
+</suite>
+
+
+
+b.Method wise Execution
+  in order to include a mthod simply use the tag name  "include"
+  in order to not run a method just use the tag name   "exclude"
+
+
+
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="abracadabra">
+       <classes>
+           <class name="class01.priority">
+               <methods>
+                   <include name="Atest"></include>
+                   <include name="Btest"/>
+                   <exclude name="Ctest"/>
+               </methods>
+           </class>
+       </classes>
+    </test>
+</suite>
+
+
+
+
+
+c.Package wise execution
+
+u can run the whole package i.e all the classes included in that package
+
+
+<suite name="custom-fit">
+    <test verbose="2" preserve-order="true" name="bran">
+        <packages>
+            <package name="class01"></package>
+        </packages>
+    </test>
+</suite>
+
+
+d.group wise execution
+
+regression group--> will consist of all the test cases included in regression testing
+
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="regression group">
+         <groups>
+             <run>
+                 <include name="regression"/>
+             </run>
+         </groups>
+        <packages>
+            <package name="class01"></package>
+        </packages>
+    </test>
+</suite>
+
+Note"
+when ever u are marking a test case in a group, and that test case has
+a before and after method
+make sure to mark it as (alwaysRun=true) other wise those pre-post cond are not going to run
+
+beforemethod(alwaysRun=true)
+
+
+
+
+-----------parallel testing-------------------
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="parallel" parallel="classes" thread-count="4">
+      <classes>
+          <class name="class01.AssertionBasic"></class>
+          <class name="class02.softAssertionExample"></class>
+      </classes>
+    </test>
+</suite>
+
+-----------listeners in testNG---
+
+Listeners:
+
+Listeners class listen to events like test failed /pass /skipped e.t.c
+once the testcase has executed
+and it either fails /pass /skips
+depending upon the status
+listeneres class takes you to the execution of the code that you have written for the scenarios
+if your test case fails/ pass or skips
+
+
+Implentation of listeners class:
+
+listeners class implements ITestListeneres
+
+which is an interface from TestNG
+and we overRide the functions in it according to our need
+
+after that you need to link the listeners class to the class on which you want it to listen
+that can be done using TextNG.XML
+
+u define ur <listeners> tag just under <suite>
