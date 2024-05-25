@@ -12,7 +12,7 @@ import java.time.Duration;
 
 public class hardAssertion {
     public  static WebDriver driver;
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openBrowser(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -20,7 +20,7 @@ public class hardAssertion {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void loginVerification(){
         WebElement username = driver.findElement(By.xpath("//input[@name='txtUsername']"));
         username.sendKeys("Admin");
@@ -31,7 +31,7 @@ public class hardAssertion {
 //        verify that the Invalid credentials is displayed
         String actualErrorMsg = driver.findElement(By.id("spanMessage")).getText();
 
-        Assert.assertEquals( actualErrorMsg,"Invalid ");
+        Assert.assertEquals( actualErrorMsg,"Invalid credentials");
 
         System.out.println("helooooooooooooooooooooooooooooooooooooooooooooooooo");
 

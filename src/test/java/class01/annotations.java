@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class annotations {
 
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeMethod(){
         System.out.println("i am before method");
     }
@@ -15,11 +15,11 @@ public class annotations {
     public void BTestCase(){
         System.out.println("i am test case b");
     }
-    @Test
+    @Test(groups = "smoke")
     public  void ATestCase(){
         System.out.println("i am test case a");
     }
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public  void afterMethod(){
         System.out.println("i am after method");
     }
